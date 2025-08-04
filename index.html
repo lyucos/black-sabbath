@@ -1,0 +1,171 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black Sabbath's Final Concert: Back to the Beginning</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/black.min.css">
+    <style>
+        .reveal section img { max-height: 430px; margin: 20px auto; display: block; }
+        .reveal h1, .reveal h2 { color: #ff4d4d; }
+        .reveal ul { font-size: 0.8em; }
+
+
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Slide 1 -->
+            <section>
+                <h2>The End of an Era</h2>
+                <h3>Black Sabbath's Final Concert</h3>
+                <p>July 5, 2025, Villa Park Stadium, Birmingham, England</p>
+                <img src="https://s.yimg.com/ny/api/res/1.2/jLgnBmYCbCUcGZlRT7xGJA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTU0MDtjZj13ZWJw/https://media.zenfs.com/en/bbc_us_articles_995/057e627dce7140896c6497af5aee9a1e" alt="Wide shot of Villa Park Stadium with 40,000 fans, red stage lighting, and fireworks. Source: Check Birmingham Live or Black Sabbath's official X account.">
+            </section>
+            <!-- Slide 2 -->
+            <section>
+                <h2>The Historic Reunion</h2>
+                <ul>
+                    <li>Original lineup: Ozzy Osbourne, Tony Iommi, Geezer Butler, Bill Ward</li>
+                    <li>First reunion since 2005, after 20 years</li>
+                    <li>A monumental moment for heavy metal fans</li>
+                </ul>
+                <img src="https://cdn1.faroutmagazine.co.uk/uploads/1/2025/07/Black-Sabbath-2025-Ross-Halfin-Photography-Far-Out-Magazine.jpg" alt="Group shot of Black Sabbath’s original members.">
+            </section>
+            <!-- Slide 3 -->
+            <section>
+                <h2>The Venue: Villa Park</h2>
+                <ul>
+                    <li>Home of Aston Villa FC in Birmingham</li>
+                    <li>Black Sabbath formed in Aston in 1968</li>
+                    <li>Emotional significance for the farewell</li>
+                </ul>
+                <img src="https://i2-prod.birminghammail.co.uk/incoming/article32001055.ece/ALTERNATES/s615b/0_Black-Sabbath-in-Birmingham.jpg" alt="Exterior of Villa Park Stadium with ‘Back to the Beginning’ banner and fans in Black Sabbath merchandise. Source: Stock photo of Villa Park or Birmingham Live.">
+            </section>
+            <!-- Slide 4 -->
+            <section>
+                <h2>All-Star Lineup</h2>
+                <ul>
+                    <li>Featured Metallica, Slayer, Pantera, Guns N’ Roses, Tool, and more</li>
+                    <li>Curated by musical director Tom Morello</li>
+                    <li>A celebration of heavy metal’s finest</li>
+                </ul>
+                <img src="https://pbs.twimg.com/media/GvB_nXeXQAAvdXr.jpg" alt="Collage of Metallica’s James Hetfield, Slayer’s stage, and Pantera performing. Source: Kerrang! or Metal Hammer photo galleries.">
+            </section>
+            <!-- Slide 5 -->
+            <section>
+                <h2>Ozzy Osbourne’s Final Bow</h2>
+                <ul>
+                    <li>Ozzy performed seated on a black winged throne with skulls</li>
+                    <li>Solo set followed by Black Sabbath performance</li>
+                    <li>Emotional farewell due to Parkinson’s challenges</li>
+                </ul>
+                <img src="https://ichef.bbci.co.uk/ace/standard/3840/cpsprodpb/3041/live/17f2d0d0-8ea2-11ef-84ff-1f508e6c7083.jpg" alt="Ozzy Osbourne on a throne with skulls, wearing a velvet suit, waving to the crowd. Source: Official concert photos or X fan posts.">
+            </section>
+            <!-- Slide 6 -->
+            <section>
+                <h2>The Setlist</h2>
+                <ul>
+                    <li>Black Sabbath: “War Pigs,” “NIB,” “Iron Man,” “Paranoid”</li>
+                    <li>Ozzy’s solo set: “Crazy Train,” “Suicide Solution”</li>
+            
+                </ul>
+                <img src="https://i2-prod.birminghammail.co.uk/article32002578.ece/ALTERNATES/s1023/0_WhatsApp-Image-2025-07-05-at-224524-1jpeg.jpg" alt="Stage during ‘War Pigs’ with red lights, air raid sirens, and crowd with raised arms. Source: Concert photo galleries or fan videos on X.">
+            </section>
+            <!-- Slide 7 -->
+            <section>
+                <h2>Emotional Highlights</h2>
+                <ul>
+                    <li>Fans wept as confetti cannons and fireworks lit the sky</li>
+                    <li>Ozzy: “Thank you from the bottom of our hearts”</li>
+                    <li>Jason Momoa jumping into the moshpit during the "Back To The Beginning</li>
+                </ul>
+                <div><img src="https://i.ytimg.com/vi/BgFWptWGGHg/maxresdefault.jpg" alt="Emotional fans in tears, holding signs for Ozzy and Black Sabbath. Source: Fan photos on X or news outlets.">
+                </div>
+                
+            </section>
+            <!-- Slide 8 -->
+            <section>
+                <h2>Charity and Impact</h2>
+                <ul>
+                    <li>£140 million donated to Cure Parkinson’s and children’s charities</li>
+                    <li>300,000 tourists boosted West Midlands economy by £20 million</li>
+            
+                </ul>
+                <img src="https://resizer.nationalworld.com/23db8cd1-7368-4929-8ca6-df5cddd78853.jpg?tr=w-1200" alt="Merchandise stand with Black Sabbath and Aston Villa items, with a charity proceeds sign. Source: Event photos or stock images of concert merch.">
+            </section>
+            <!-- Slide 9 -->
+            <section>
+                <h2>Global Reach</h2>
+                <ul>
+                    <li>Livestreamed globally with a two-hour delay</li>
+                    <li>Peaked at 5.8 million concurrent streams</li>
+                    <li>Fans worldwide joined via pay-per-view</li>
+                </ul>
+                <img src="Capture.JPG" alt="Livestream interface showing Black Sabbath performing, with a viewer counter. Source: Screenshots from official livestream or X posts.">
+            </section>
+            <!-- Slide 10 -->
+            <section>
+                <h2>Legacy of Black Sabbath</h2>
+                <ul>
+                    <li>Pioneers of heavy metal, formed in 1968</li>
+                    <li>Sold over 75 million albums</li>
+                    <li>“The greatest heavy metal show ever”</li>
+                </ul>
+                <div class=".image-container">
+                <img   src="Capture2.JPG" alt="Mural outside Birmingham New Street station depicting Black Sabbath, signed by the band. Source: Birmingham Live or local news photos.">
+            <div>
+            </section>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'slide',
+            slideNumber: true
+        });
+    </script>
+</body>
+</html>
